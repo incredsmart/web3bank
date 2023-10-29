@@ -2,7 +2,7 @@
 const URL = 'ws://localhost:8545';
 
 // Contrato CashMachine (interface)
-const builtContract = await fetch('../../build/contracts/CashMachine.json');
+const builtContract = await fetch('../../server/build/contracts/CashMachine.json');
 
 const CONTRACT = await builtContract.json();
 
