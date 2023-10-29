@@ -1,32 +1,21 @@
-// contracts/CashMachine.sol
+// SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.0;
 
 contract CashMachine {
-    address owner;
-    uint256 balance;
+    mapping(address => uint) private balances;
 
-    constructor() {
-        owner = msg.sender;
-        balance = 0;
+    function getBalance(address user) public view returns (uint) {
+        return balances[user];
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner can call this function");
-        _;
+    function deposit(uint amount) public payable {
+        require(msg.value == amount, "You must send the exact amount to deposit.");
+        balances[msg.sender] += amount;
     }
 
-    function deposit() public payable {
-        require(msg.value > 0, "Amount should be greater than zero");
-        balance += msg.value;
-    }
-
-    function withdraw(uint256 amount) public onlyOwner {
-        require(amount <= balance, "Insufficient balance");
-        balance -= amount;
+    function withdraw(uint amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance.");
+        balances[msg.sender] -= amount;
         payable(msg.sender).transfer(amount);
-    }
-
-    function getBalance() public view returns (uint256) {
-        return balance;
     }
 }
