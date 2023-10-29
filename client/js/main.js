@@ -1,5 +1,5 @@
 import { isWalletValid } from './isWalletValid.mjs';
-import { setInLocalStorage } from './localStorage.mjs';
+import { setInLocalStorage, getFromLocalStorage } from './localStorage.mjs';
 import {
   setInSessionStorage,
   getFromSessionStorage,
@@ -22,7 +22,7 @@ const cashMachineContract = new web3.eth.Contract(
 const userWalletInput = document.getElementById('userWallet');
 const loginBtn = document.querySelector('#submit');
 
-loginBtn.addEventListener('click', (event) => {
+loginBtn?.addEventListener('click', (event) => {
   event.preventDefault();
   loginBtn.setAttribute('disabled', 'disabled');
 
@@ -62,3 +62,50 @@ const validWalletMessage = () => {
     'success'
   );
 };
+
+/**
+ * Mostra uma mensagem de usuário não autenticado
+ */
+const authWarning = () => {
+  const hrefArr = window.location.pathname.split('/');
+  const actualHref = hrefArr[hrefArr.length - 1];
+  const warningMessage = getFromSessionStorage('auth-warning');
+
+  if (warningMessage && actualHref === 'index.html') {
+    showToast(warningMessage, 'warning');
+
+    removeFromSessionStorage('auth-warning');
+  }
+};
+
+authWarning();
+
+/**
+ * Verifica se o usuário está autenticado ou não
+ */
+const checkIfUserIsAuthenticated = () => {
+  const hrefArr = window.location.pathname.split('/');
+  const actualHref = hrefArr[hrefArr.length - 1];
+  const user = getFromLocalStorage('user');
+
+  if (user?.auth && actualHref === 'index.html') {
+    loginBtn.setAttribute('disabled', 'disabled');
+    userWalletInput.setAttribute('disabled', 'disabled');
+
+    showToast('Você já está autenticado. Redirecionando!', 'warning');
+
+    // Simula uma requisição ao servidor
+    setTimeout(() => {
+      window.location.href = 'app.html';
+    }, 2000);
+  } else if (user?.auth == null && actualHref === 'app.html') {
+    setInSessionStorage(
+      'auth-warning',
+      'Você não está autenticado. Faça login!'
+    );
+
+    window.location.href = 'index.html';
+  }
+};
+
+checkIfUserIsAuthenticated();
