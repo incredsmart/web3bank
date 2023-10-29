@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>w3bank - Seu banco do futuro</title>
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Web3.js -->
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+
+  <!-- Toastify CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body class="container j-center">
+  <div class="container col app">
+    <div class="logo container">
+      <img src="images/Logo.svg" alt="logo do banco webank">
+    </div>
+    <div class="text container col">
+      <h1 class="title">O banco do futuro</h1>
+      <p class="subtitle">Lorem ipsum dolor sit amet consectetur.
+        Morbi enim aliquam.</p>
+    </div>
+    <form class="form">
+      <div class="form-group container col">
+        <label for="userWallet">Endereço da carteira</label>
+        <input type="text" name="userWallet" id="userWallet">
+      </div>
+
+      <button id="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Toastify -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <!-- Custom scripts -->
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
