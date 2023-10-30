@@ -166,3 +166,20 @@ const checkIfUserIsInApp = () => {
 }
 
 checkIfUserIsInApp();
+
+// Deposit
+const confirmDepositBtn = document.getElementById('deposit-confirm');
+
+confirmDepositBtn.addEventListener('click', async () => {
+  const depositAmount = document.getElementById('deposit-amount').value;
+  const { userWallet } = getFromLocalStorage('user');
+  
+  try {
+    await deposit(web3, cashMachineContract, userWallet, depositAmount);
+
+    goToTotal();
+    updateTotal();
+  } catch(err) {
+    console.log(err);
+  }
+});
