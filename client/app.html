@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,24 +9,65 @@
   <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <!-- Web3.js -->
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
-  
+
   <!-- Toastify CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-  
+
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles/style.css">
 </head>
-<body>
-  <h1>App w3bank</h1>
+
+<body class="container j-center bg-blue">
+  <div class="container col app bg-white ignore-overflow-x">
+    <nav class="container brand a-center">
+      <h1>w3bank</h1>
+      <span class="logout">Sair</span>
+    </nav>
+    <div class="container atm" id="atm">
+      <div class="container col deposit">
+        <p class="atm-title">Valor (ether)</p>
+        <input type="number" pattern="\d*" class="cash-input">
+        <div class="actions container">
+          <button class="button-orange" id="deposit-cancel">Cancelar</button>
+          <button class="button-green" id="deposit-confirm">Depositar</button>
+        </div>
+      </div>
+      <div class="container col total a-center">
+        <p class="total-title">Total em caixa (eth)</p>
+        <p class="eth-total">
+          <span id="eth-total">11.0909</span>
+          eth
+        </p>
+        <div class="actions container">
+          <button class="button-green" id="total-deposit">Depositar</button>
+          <button class="button-orange" id="total-withdraw">Sacar</button>
+        </div>
+      </div>
+      <div class="container col withdraw">
+        <p class="atm-title">Sacar (eth)</p>
+        <input type="number" pattern="\d*" class="cash-input">
+        <div class="actions container">
+          <button class="button-orange" id="withdraw-cancel">Cancelar</button>
+          <button class="button-green" id="withdraw-confirm">Sacar</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="container col">
+      <p>Transações</p>
+      <div class="container col transactions-list"></div>
+    </div> -->
+  </div>
 
   <!-- Toastify -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  
+
   <!-- Custom scripts -->
   <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

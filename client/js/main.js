@@ -109,3 +109,38 @@ const checkIfUserIsAuthenticated = () => {
 };
 
 checkIfUserIsAuthenticated();
+
+
+/**
+ * Troca a ação do caixa eletrônico
+ */
+const atm = document.getElementById('atm');
+
+const depositBtn = document.getElementById('total-deposit');
+const withdrawBtn = document.getElementById('total-withdraw');
+
+const depositCancel = document.getElementById('deposit-cancel');
+const withdrawCancel = document.getElementById('withdraw-cancel');
+
+const goToDeposit = () => {
+  atm.classList.add('goToDeposit');
+  atm.classList.remove('goToTotal');
+};
+
+const goToTotal = () => {
+  atm.classList.add('goToTotal');
+  atm.classList.remove('goToDeposit');
+  atm.classList.remove('goToWithdraw');
+};
+
+const goToWithdraw = () => {
+  atm.classList.add('goToWithdraw');
+  atm.classList.remove('goToTotal');
+};
+
+depositBtn.addEventListener('click', goToDeposit);
+withdrawBtn.addEventListener('click', goToWithdraw);
+
+depositCancel.addEventListener('click', goToTotal);
+withdrawCancel.addEventListener('click', goToTotal);
+

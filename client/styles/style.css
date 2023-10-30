@@ -1,6 +1,7 @@
 :root {
   --blue: #227AFE;
   --green: #A1E92E;
+  --orange: #FFC65F;
   --error: #F9F871;
 }
 
@@ -40,10 +41,82 @@ ul {
   align-items: center;
 }
 
+.bg-blue {
+  background-color: var(--blue);
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.ignore-overflow-x {
+  overflow-x: hidden;
+}
+
+.cash-input {
+  border: 2px solid;
+  border-radius: 5px;
+
+  height: 35px;
+  width: 100%;
+
+  margin: 14px 0;
+
+  font-family: 'Lexend',
+    sans-serif;
+
+  padding-left: 6px;
+}
+
+.actions {
+  width: 100%;
+  justify-content: space-between;
+}
+
+:is(.button-green:hover, .button-orange:hover) {
+  cursor: pointer;
+}
+
+.button-green {
+  background-color: var(--green);
+  
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.button-orange {
+  background-color: var(--orange);
+  
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.button-white {
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
 /* ================== Login Screen ================== */
 
 .app {
-  background-color: var(--blue);
   border-radius: 10px;
 
   margin-top: 20px;
@@ -128,4 +201,169 @@ ul {
 
   font-size: 14px;
   font-weight: 600;
+}
+
+/* ================== APP ================== */
+
+nav.brand {
+  padding: 24px 24px;
+  justify-content: space-between;
+}
+
+nav.brand h1 {
+  color: var(--blue);
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+nav.brand .logout {
+  font-size: 14px;
+  transition: all 0.3s ease-in;
+}
+
+nav.brand .logout:hover {
+  color: #f00;
+  cursor: pointer;
+
+  text-decoration: underline;
+}
+
+.atm {
+  width: 900px;
+
+  /* Inicia nesse valor */
+  margin-left: -300px;
+
+  /* Vai para o formulário de depósito */
+  /* margin-left: 0; */
+
+  /* margin-left: -600px; */
+}
+
+.atm-title {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.atm .deposit {
+  padding: 0 24px;
+  width: 300px;
+}
+
+.atm .deposit .actions > .deposit-confirm {
+  background-color: var(--green);
+
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.atm .deposit .actions > .deposit-cancel {
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.atm .total {
+  padding: 0 24px;
+  width: 300px;
+}
+
+.atm .total p.total-title {
+  font-size: 14px;
+  font-weight: 700;
+
+  padding-bottom: 12px;
+}
+
+.atm .total p.eth-total {
+  color: #fff;
+  background-color: var(--blue);
+
+  font-size: 32px;
+  font-weight: 700;
+
+  padding: 10px 30px;
+  margin: 16px 0;
+}
+
+.atm .total .actions > .total-deposit {
+  background-color: var(--green);
+
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.atm .total .actions > .total-withdraw {
+  border: 2px solid #000;
+  border-radius: 5px;
+
+  font-weight: 700;
+
+  padding: 10px 10px;
+
+  width: 100px;
+}
+
+.atm .withdraw {
+  padding: 0 24px;
+  width: 300px;
+}
+
+/* ================== Animations ================== */
+.goToDeposit {
+  animation: toDeposit 0.8s forwards cubic-bezier(.17, .67, .83, .67);
+}
+
+@keyframes toDeposit {
+  from {
+    margin-left: -300px;
+  }
+  to {
+    margin-left: 0;
+  }
+}
+
+.goToTotal {
+  animation: toTotal 0.8s forwards cubic-bezier(.17, .67, .83, .67);
+}
+
+@keyframes toTotal {
+  from {
+    margin-left: 0px;
+  }
+  to {
+    margin-left: -300px;
+  }
+}
+
+.goToWithdraw {
+  animation: toWithdraw 0.8s forwards cubic-bezier(.17, .67, .83, .67);
+}
+
+@keyframes toWithdraw {
+  from {
+    margin-left: -300px;
+  }
+
+  to {
+    margin-left: -600px;
+  }
 }
