@@ -179,7 +179,33 @@ confirmDepositBtn.addEventListener('click', async () => {
 
     goToTotal();
     updateTotal();
+
+    showToast('Depósito realizado com sucesso!', 'success');
   } catch(err) {
     console.log(err);
+    showToast('Oooops! Algo de errado de aconteceu. Tente mais tarde!', 'error');
+  }
+});
+
+// withdraw
+const confirmWithdrawBtn = document.getElementById('withdraw-confirm');
+
+confirmWithdrawBtn.addEventListener('click', async () => {
+  const withdrawAmount = document.getElementById('withdraw-amount').value;
+  const { userWallet } = getFromLocalStorage('user');
+
+  try {
+    await withdraw(web3, cashMachineContract, userWallet, withdrawAmount);
+
+    goToTotal();
+    updateTotal();
+
+    showToast('Saque realizado com sucesso!', 'success');
+  } catch (err) {
+    console.log(err);
+    showToast(
+      'Oooops! Algo de errado de aconteceu. Tente mais tarde!',
+      'error'
+    );
   }
 });
