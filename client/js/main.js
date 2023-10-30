@@ -111,7 +111,6 @@ const checkIfUserIsAuthenticated = () => {
 
 checkIfUserIsAuthenticated();
 
-
 /**
  * Troca a ação do caixa eletrônico
  */
@@ -152,20 +151,62 @@ const updateTotal = async () => {
   const totalInfo = document.getElementById('eth-total');
   const { userWallet } = getFromLocalStorage('user');
 
-  totalInfo.textContent = await getBalance(web3, cashMachineContract, userWallet);
-}
+  totalInfo.textContent = await getBalance(
+    web3,
+    cashMachineContract,
+    userWallet
+  );
+};
 
 const checkIfUserIsInApp = () => {
   const hrefArr = window.location.pathname.split('/');
   const actualHref = hrefArr[hrefArr.length - 1];
   const user = getFromLocalStorage('user');
-  
+
   if (user?.auth && actualHref === 'app.html') {
     updateTotal();
   }
-}
+};
 
 checkIfUserIsInApp();
+
+// Save transaction in localStorage
+const saveTransaction = (userWallet, type, amount) => {
+  const transactionsList = getFromLocalStorage('transactions');
+
+  if (!transactionsList) {
+    const transaction = [
+      {
+        userWallet,
+        userTransactions: [
+          {
+            type,
+            amount,
+            date: new Date(),
+          },
+        ],
+      },
+    ];
+
+    setInLocalStorage('transactions', transaction);
+  } else {
+    const newTx = {
+      type,
+      amount,
+      date: new Date(),
+    };
+    transactionsList.forEach((transaction) => {
+      if (transaction.userWallet === userWallet) {
+        const allTransactions = transaction.userTransactions;
+        allTransactions.unshift(newTx);
+
+        transaction.userTransactions = allTransactions;
+      }
+    });
+
+    setInLocalStorage('transactions', transactionsList);
+  }
+};
 
 // Deposit
 const confirmDepositBtn = document.getElementById('deposit-confirm');
@@ -173,17 +214,21 @@ const confirmDepositBtn = document.getElementById('deposit-confirm');
 confirmDepositBtn.addEventListener('click', async () => {
   const depositAmount = document.getElementById('deposit-amount').value;
   const { userWallet } = getFromLocalStorage('user');
-  
+
   try {
     await deposit(web3, cashMachineContract, userWallet, depositAmount);
 
     goToTotal();
     updateTotal();
+    saveTransaction(userWallet, 'deposit', depositAmount);
 
     showToast('Depósito realizado com sucesso!', 'success');
-  } catch(err) {
+  } catch (err) {
     console.log(err);
-    showToast('Oooops! Algo de errado de aconteceu. Tente mais tarde!', 'error');
+    showToast(
+      'Oooops! Algo de errado de aconteceu. Tente mais tarde!',
+      'error'
+    );
   }
 });
 
@@ -199,6 +244,7 @@ confirmWithdrawBtn.addEventListener('click', async () => {
 
     goToTotal();
     updateTotal();
+    saveTransaction(userWallet, 'withdraw', withdrawAmount);
 
     showToast('Saque realizado com sucesso!', 'success');
   } catch (err) {
