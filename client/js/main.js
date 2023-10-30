@@ -7,6 +7,7 @@ import {
 } from './sessionStorage.mjs';
 import { URL, CONTRACT, CONTRACT_ADDRESS } from './web3Config.mjs';
 import { showToast } from './toastifyManager.mjs';
+import { getBalance, deposit, withdraw } from './web3Methods.mjs';
 
 const web3 = new Web3(URL);
 
@@ -144,3 +145,24 @@ withdrawBtn.addEventListener('click', goToWithdraw);
 depositCancel.addEventListener('click', goToTotal);
 withdrawCancel.addEventListener('click', goToTotal);
 
+/**
+ * CashMachine methods
+ */
+const updateTotal = async () => {
+  const totalInfo = document.getElementById('eth-total');
+  const { userWallet } = getFromLocalStorage('user');
+
+  totalInfo.textContent = await getBalance(web3, cashMachineContract, userWallet);
+}
+
+const checkIfUserIsInApp = () => {
+  const hrefArr = window.location.pathname.split('/');
+  const actualHref = hrefArr[hrefArr.length - 1];
+  const user = getFromLocalStorage('user');
+  
+  if (user?.auth && actualHref === 'app.html') {
+    updateTotal();
+  }
+}
+
+checkIfUserIsInApp();
