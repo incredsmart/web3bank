@@ -122,7 +122,7 @@ ul {
   margin-top: 20px;
 
   max-width: 300px;
-  max-height: 768px;
+  max-height: 600px;
 
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
@@ -325,6 +325,52 @@ nav.brand .logout:hover {
 .atm .withdraw {
   padding: 0 24px;
   width: 300px;
+}
+
+/* ================== Transactions ================== */
+.transaction-title {
+  padding: 31px 24px 0px 24px;
+}
+
+.transactions {
+  margin-top: 31px;
+
+  gap: 20px 0;
+  width: 100%;
+
+  overflow-y: scroll;
+}
+
+.even {
+  background-color: #eee;
+}
+
+.transaction {
+  justify-content: space-between;
+
+  padding: 15px 24px;
+  width: 100%;
+
+  overflow: none;
+}
+
+.transaction-info > p {
+  font-size: 16px;
+  font-weight: 500;
+
+  margin-bottom: 3px;
+}
+
+.transaction-info > span {
+  color: #999;
+
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.transaction-amount > p {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* ================== Animations ================== */

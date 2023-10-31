@@ -147,6 +147,79 @@ withdrawCancel.addEventListener('click', goToTotal);
 /**
  * CashMachine methods
  */
+
+const fetchTransactions = () => {
+  const transactions = getFromLocalStorage('transactions');
+  let transactionsList = document.getElementById('transactions-list');
+  const { userWallet } = getFromLocalStorage('user');
+
+  let transactionsElements = [];
+
+  // while (transactionsList.firstChild) {
+  //   transactionsList.removeChild(transactionsList.firstChild);
+  // }
+  
+  if (transactions) {
+    transactions.forEach((transaction) => {
+      if (transaction.userWallet === userWallet) {
+        transactionsElements = transaction.userTransactions.map(
+          (userTransaction, index) => {
+            const transactionDiv = document.createElement('div');
+
+            const transactionInfo = document.createElement('div');
+            const transactionAmount = document.createElement('div');
+
+            const transactionInfoType = document.createElement('p');
+            const transactionDate = document.createElement('span');
+
+            const transactionAmountInfo = document.createElement('p');
+
+            /** Transaction */
+            transactionDiv.classList.add('transaction');
+            transactionDiv.classList.add('container');
+
+            if (index % 2 === 0) {
+              transactionDiv.classList.add('even');
+            }
+
+            /** Transaction info */
+            transactionInfo.classList.add('transaction-info');
+
+            transactionInfoType.textContent = `${
+              userTransaction.type === 'deposit' ? 'Depósito' : 'Saque'
+            }`;
+            transactionDate.textContent = dayjs(userTransaction.date).format(
+              'DD/MM/YYYY'
+            );
+
+            /** Transaction amount */
+            transactionAmount.classList.add('transaction-amount');
+
+            transactionAmountInfo.textContent = `${
+              userTransaction.type === 'deposit'
+                ? `+ ${userTransaction.amount} eth`
+                : `- ${userTransaction.amount} eth`
+            }`;
+
+            /** Junto todo mundo */
+            transactionInfo.appendChild(transactionInfoType);
+            transactionInfo.appendChild(transactionDate);
+
+            transactionAmount.appendChild(transactionAmountInfo);
+
+            transactionDiv.appendChild(transactionInfo);
+            transactionDiv.appendChild(transactionAmount);
+
+            return transactionDiv;
+          }
+        );
+      }
+    });
+
+    transactionsList.prepend(...transactionsElements);
+  }
+};
+
 const updateTotal = async () => {
   const totalInfo = document.getElementById('eth-total');
   const { userWallet } = getFromLocalStorage('user');
@@ -165,6 +238,8 @@ const checkIfUserIsInApp = () => {
 
   if (user?.auth && actualHref === 'app.html') {
     updateTotal();
+    fetchTransactions();
+    // location.reload();
   }
 };
 
@@ -229,6 +304,8 @@ confirmDepositBtn.addEventListener('click', async () => {
       'Oooops! Algo de errado de aconteceu. Tente mais tarde!',
       'error'
     );
+  } finally {
+    location.reload();
   }
 });
 
@@ -253,5 +330,7 @@ confirmWithdrawBtn.addEventListener('click', async () => {
       'Oooops! Algo de errado de aconteceu. Tente mais tarde!',
       'error'
     );
+  } finally {
+    location.reload();
   }
 });
