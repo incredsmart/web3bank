@@ -1,5 +1,9 @@
 import { isWalletValid } from './isWalletValid.mjs';
-import { setInLocalStorage, getFromLocalStorage } from './localStorage.mjs';
+import {
+  setInLocalStorage,
+  getFromLocalStorage,
+  removeFromLocalStorage,
+} from './localStorage.mjs';
 import {
   setInSessionStorage,
   getFromSessionStorage,
@@ -138,11 +142,11 @@ const goToWithdraw = () => {
   atm.classList.remove('goToTotal');
 };
 
-depositBtn.addEventListener('click', goToDeposit);
-withdrawBtn.addEventListener('click', goToWithdraw);
+depositBtn?.addEventListener('click', goToDeposit);
+withdrawBtn?.addEventListener('click', goToWithdraw);
 
-depositCancel.addEventListener('click', goToTotal);
-withdrawCancel.addEventListener('click', goToTotal);
+depositCancel?.addEventListener('click', goToTotal);
+withdrawCancel?.addEventListener('click', goToTotal);
 
 /**
  * CashMachine methods
@@ -155,10 +159,6 @@ const fetchTransactions = () => {
 
   let transactionsElements = [];
 
-  // while (transactionsList.firstChild) {
-  //   transactionsList.removeChild(transactionsList.firstChild);
-  // }
-  
   if (transactions) {
     transactions.forEach((transaction) => {
       if (transaction.userWallet === userWallet) {
@@ -286,7 +286,7 @@ const saveTransaction = (userWallet, type, amount) => {
 // Deposit
 const confirmDepositBtn = document.getElementById('deposit-confirm');
 
-confirmDepositBtn.addEventListener('click', async () => {
+confirmDepositBtn?.addEventListener('click', async () => {
   const depositAmount = document.getElementById('deposit-amount').value;
   const { userWallet } = getFromLocalStorage('user');
 
@@ -312,7 +312,7 @@ confirmDepositBtn.addEventListener('click', async () => {
 // withdraw
 const confirmWithdrawBtn = document.getElementById('withdraw-confirm');
 
-confirmWithdrawBtn.addEventListener('click', async () => {
+confirmWithdrawBtn?.addEventListener('click', async () => {
   const withdrawAmount = document.getElementById('withdraw-amount').value;
   const { userWallet } = getFromLocalStorage('user');
 
@@ -332,5 +332,18 @@ confirmWithdrawBtn.addEventListener('click', async () => {
     );
   } finally {
     location.reload();
+  }
+});
+
+/**
+ * Logout
+ */
+const logoutBtn = document.getElementById('logout');
+
+logoutBtn?.addEventListener('click', () => {
+  const result = removeFromLocalStorage('user');
+
+  if (result) {
+    window.location.href = 'index.html';
   }
 });
