@@ -50,4 +50,6 @@ Tendo as ferramentas básicas instaladas na sua máquina, agora é só rodar o p
 
 >ganache
 
-6. Por fim, copie um dos endereços da lista de wallets que o Ganache te oferece e logue no aplicativo. Lembrando que o Ganache deve permanecer aberto em segundo plano para que o projeto funcione corretamente.
+6. Por fim, copie um dos endereços da lista de wallets que o Ganache te oferece e logue no aplicativo. Se caso o projeto não funcionar, verifique o arquivo **truffle-config**, procure pela variável `development` dentro do objeto `networks` e verifique se as variáveis de conexão estão de acordo com o seu servidor Ganache.
+
+Lembrando que o Ganache deve permanecer aberto em segundo plano para que o projeto funcione corretamente.
